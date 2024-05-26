@@ -42,5 +42,3 @@ For more information, please contact:
 
 - **Koyel Bhowmick**
 - **Email:** koyelbhowmick067@gmail.com
-- **REG. NO.:** 223001010642
-- **ROLL NO.:** 30001222041
