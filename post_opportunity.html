@@ -33,6 +33,10 @@
                 <textarea id="description" name="description" required></textarea>
                 <label for="date">Date:</label>
                 <input type="date" id="date" name="date" required>
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+                <label for="vacancies">Vacancies:</label>
+                <input type="number" id="vacancies" name="vacancies" required>
                 <button type="submit" class="button">Post</button>
             </form>
             <p id="success-message" style="color: green; display: none;">Opportunity posted successfully!</p>
@@ -61,12 +65,16 @@
                 const title = document.getElementById('title').value;
                 const description = document.getElementById('description').value;
                 const date = document.getElementById('date').value;
+                const address = document.getElementById('address').value;
+                const vacancies = document.getElementById('vacancies').value;
 
                 let opportunities = JSON.parse(localStorage.getItem('opportunities')) || [];
                 opportunities.push({
                     title: title,
                     description: description,
                     date: date,
+                    address: address,
+                    vacancies: vacancies,
                     organization: loggedInUser.name
                 });
                 localStorage.setItem('opportunities', JSON.stringify(opportunities));
