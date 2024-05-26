@@ -68,6 +68,7 @@
 
             const opportunityList = document.getElementById('opportunity-list');
             const opportunities = JSON.parse(localStorage.getItem('opportunities')) || [];
+            const applications = JSON.parse(localStorage.getItem('applications')) || [];
 
             opportunities.forEach(opportunity => {
                 if (opportunity.organization === loggedInUser.name) {
@@ -88,11 +89,18 @@
                         window.location.href = 'edit_opportunity.html';
                     });
                     opportunityDiv.querySelector('.remove-opportunity').addEventListener('click', () => {
-                        const index = opportunities.indexOf(opportunity);
-                        if (index > -1) {
-                            opportunities.splice(index, 1);
-                            localStorage.setItem('opportunities', JSON.stringify(opportunities));
-                            window.location.reload();
+                        if (confirm('Are you sure you want to remove this opportunity and all its applications?')) {
+                            const index = opportunities.indexOf(opportunity);
+                            if (index > -1) {
+                                opportunities.splice(index, 1);
+                                localStorage.setItem('opportunities', JSON.stringify(opportunities));
+
+                                // Remove related applications
+                                const filteredApplications = applications.filter(application => application.opportunity !== opportunity.title || application.organization !== opportunity.organization);
+                                localStorage.setItem('applications', JSON.stringify(filteredApplications));
+
+                                window.location.reload();
+                            }
                         }
                     });
                     opportunityList.appendChild(opportunityDiv);
@@ -100,8 +108,6 @@
             });
 
             const applicationList = document.getElementById('application-list');
-            const applications = JSON.parse(localStorage.getItem('applications')) || [];
-
             applications.forEach(application => {
                 if (application.organization === loggedInUser.name) {
                     const applicationDiv = document.createElement('div');
