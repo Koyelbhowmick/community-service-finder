@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opportunity Details - Community Service Finder</title>
+    <title>View Opportunity - Community Service Finder</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
             background: url('https://images.unsplash.com/photo-1506765515384-028b60a970df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
             background-size: cover;
+        }
+        .opportunity-details {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -24,12 +30,15 @@
         </nav>
     </header>
     <main>
-        <section class="form-section">
+        <section class="opportunity-details">
             <h2>Opportunity Details</h2>
-            <div id="opportunity-details">
-                <!-- Details will be filled by JavaScript -->
-            </div>
-            <button class="button" id="apply-button">Apply</button>
+            <p><strong>Title:</strong> <span id="title"></span></p>
+            <p><strong>Organization:</strong> <span id="organization"></span></p>
+            <p><strong>Date:</strong> <span id="date"></span></p>
+            <p><strong>Description:</strong> <span id="description"></span></p>
+            <p><strong>Address:</strong> <span id="address"></span></p>
+            <p><strong>Vacancies:</strong> <span id="vacancies"></span></p>
+            <button class="button" id="apply">Apply</button>
             <p id="success-message" style="color: green; display: none;">Application submitted successfully!</p>
         </section>
     </main>
@@ -45,41 +54,37 @@
                 return;
             }
 
+            const selectedOpportunity = JSON.parse(sessionStorage.getItem('selectedOpportunity'));
+
+            if (!selectedOpportunity) {
+                window.location.href = 'volunteer_dashboard.html';
+                return;
+            }
+
+            document.getElementById('title').textContent = selectedOpportunity.title;
+            document.getElementById('organization').textContent = selectedOpportunity.organization;
+            document.getElementById('date').textContent = selectedOpportunity.date;
+            document.getElementById('description').textContent = selectedOpportunity.description;
+            document.getElementById('address').textContent = selectedOpportunity.address;
+            document.getElementById('vacancies').textContent = selectedOpportunity.vacancies;
+
             document.getElementById('logout').addEventListener('click', () => {
                 sessionStorage.removeItem('loggedInUser');
                 window.location.href = 'login.html';
             });
 
-            const opportunity = JSON.parse(sessionStorage.getItem('selectedOpportunity'));
-            if (!opportunity) {
-                window.location.href = 'volunteer_dashboard.html';
-                return;
-            }
+            document.getElementById('apply').addEventListener('click', () => {
+                const applications = JSON.parse(localStorage.getItem('applications')) || [];
 
-            const detailsDiv = document.getElementById('opportunity-details');
-            detailsDiv.innerHTML = `
-                <h3>${opportunity.title}</h3>
-                <p><strong>Organization:</strong> ${opportunity.organization}</p>
-                <p><strong>Date:</strong> ${opportunity.date}</p>
-                <p><strong>Description:</strong> ${opportunity.description}</p>
-            `;
-
-            const applyButton = document.getElementById('apply-button');
-            applyButton.addEventListener('click', () => {
-                let applications = JSON.parse(localStorage.getItem('applications')) || [];
                 applications.push({
                     volunteer: loggedInUser.name,
                     email: loggedInUser.email,
-                    opportunity: opportunity.title,
-                    organization: opportunity.organization,
-                    date: opportunity.date
+                    organization: selectedOpportunity.organization,
+                    opportunity: selectedOpportunity.title
                 });
-                localStorage.setItem('applications', JSON.stringify(applications));
 
+                localStorage.setItem('applications', JSON.stringify(applications));
                 document.getElementById('success-message').style.display = 'block';
-                setTimeout(() => {
-                    window.location.href = 'volunteer_dashboard.html';
-                }, 2000);
             });
         });
     </script>
