@@ -10,7 +10,7 @@
             background: url('https://images.unsplash.com/photo-1506765515384-028b60a970df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
             background-size: cover;
         }
-        .application {
+        .opportunity, .application {
             background-color: white;
             padding: 20px;
             margin: 20px;
@@ -33,6 +33,12 @@
             <h2>Welcome, <span id="organization-name"></span></h2>
             <p>Email: <span id="organization-email"></span></p>
             <button class="button" id="post-opportunity">Post a New Opportunity</button>
+        </section>
+        <section class="opportunities">
+            <h2>Your Opportunities</h2>
+            <div id="opportunity-list">
+                <!-- Opportunities will be filled by JavaScript -->
+            </div>
         </section>
         <section class="applications">
             <h2>Applications</h2>
@@ -58,6 +64,39 @@
 
             document.getElementById('post-opportunity').addEventListener('click', () => {
                 window.location.href = 'post_opportunity.html';
+            });
+
+            const opportunityList = document.getElementById('opportunity-list');
+            const opportunities = JSON.parse(localStorage.getItem('opportunities')) || [];
+
+            opportunities.forEach(opportunity => {
+                if (opportunity.organization === loggedInUser.name) {
+                    const opportunityDiv = document.createElement('div');
+                    opportunityDiv.classList.add('opportunity');
+                    opportunityDiv.innerHTML = `
+                        <h3>${opportunity.title}</h3>
+                        <p><strong>Organization:</strong> ${opportunity.organization}</p>
+                        <p><strong>Date:</strong> ${opportunity.date}</p>
+                        <p><strong>Description:</strong> ${opportunity.description}</p>
+                        <p><strong>Address:</strong> ${opportunity.address}</p>
+                        <p><strong>Vacancies:</strong> ${opportunity.vacancies}</p>
+                        <button class="button edit-opportunity">Edit</button>
+                        <button class="button remove-opportunity">Remove</button>
+                    `;
+                    opportunityDiv.querySelector('.edit-opportunity').addEventListener('click', () => {
+                        sessionStorage.setItem('selectedOpportunity', JSON.stringify(opportunity));
+                        window.location.href = 'edit_opportunity.html';
+                    });
+                    opportunityDiv.querySelector('.remove-opportunity').addEventListener('click', () => {
+                        const index = opportunities.indexOf(opportunity);
+                        if (index > -1) {
+                            opportunities.splice(index, 1);
+                            localStorage.setItem('opportunities', JSON.stringify(opportunities));
+                            window.location.reload();
+                        }
+                    });
+                    opportunityList.appendChild(opportunityDiv);
+                }
             });
 
             const applicationList = document.getElementById('application-list');
