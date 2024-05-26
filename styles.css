@@ -1,0 +1,141 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: rgba(76, 175, 80, 0.8);
+    padding: 1rem;
+    text-align: center;
+    color: white;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    margin: 0 1rem;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 2rem;
+    text-align: center;
+}
+
+footer {
+    background-color: rgba(76, 175, 80, 0.8);
+    padding: 0.5rem; /* Smaller padding for the footer */
+    text-align: center;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Hero section */
+.hero {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 10px;
+    display: inline-block;
+    animation: fadeIn 1s ease-in;
+}
+
+.hero h2 {
+    margin-top: 0;
+}
+
+.button {
+    display: inline-block;
+    background-color: #4caf50;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Form section */
+.form-section {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in;
+    text-align: left; /* Align text to the left */
+}
+
+.form-section h2 {
+    margin-top: 0;
+}
+
+.form-section label {
+    display: block;
+    margin: 1rem 0 0.5rem;
+}
+
+.form-section input,
+.form-section select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Volunteer and organization details */
+.volunteer-details,
+.organization-details {
+    margin-bottom: 2rem;
+}
+
+.opportunities,
+.applications {
+    margin-top: 2rem;
+}
+
+.opportunity,
+.application {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in;
+}
+
+.opportunity h3,
+.application h3 {
+    margin-top: 0;
+}

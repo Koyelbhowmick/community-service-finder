@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organization Dashboard - Community Service Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1506765515384-028b60a970df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .application {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Community Service Finder</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="register.html">Register</a>
+            <a href="login.html">Login</a>
+            <a href="#" id="logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <section class="organization-details">
+            <h2>Welcome, <span id="organization-name"></span></h2>
+            <p>Email: <span id="organization-email"></span></p>
+            <button class="button" id="post-opportunity">Post a New Opportunity</button>
+        </section>
+        <section class="applications">
+            <h2>Applications</h2>
+            <div id="application-list">
+                <!-- Applications will be filled by JavaScript -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Community Service Finder. All rights reserved. <a href="contact.html">Contact Us</a></p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+
+            if (!loggedInUser || loggedInUser.userType !== 'organization') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            document.getElementById('organization-name').textContent = loggedInUser.name;
+            document.getElementById('organization-email').textContent = loggedInUser.email;
+
+            document.getElementById('post-opportunity').addEventListener('click', () => {
+                window.location.href = 'post_opportunity.html';
+            });
+
+            const applicationList = document.getElementById('application-list');
+            const applications = JSON.parse(localStorage.getItem('applications')) || [];
+
+            applications.forEach(application => {
+                if (application.organization === loggedInUser.name) {
+                    const applicationDiv = document.createElement('div');
+                    applicationDiv.classList.add('application');
+                    applicationDiv.innerHTML = `
+                        <h3>${application.volunteer}</h3>
+                        <p><strong>Email:</strong> ${application.email}</p>
+                        <p><strong>Applied for:</strong> ${application.opportunity}</p>
+                        <button class="button view-details">View Details</button>
+                    `;
+                    applicationDiv.querySelector('.view-details').addEventListener('click', () => {
+                        sessionStorage.setItem('selectedApplication', JSON.stringify(application));
+                        window.location.href = 'view_application.html';
+                    });
+                    applicationList.appendChild(applicationDiv);
+                }
+            });
+
+            document.getElementById('logout').addEventListener('click', () => {
+                sessionStorage.removeItem('loggedInUser');
+                window.location.href = 'login.html';
+            });
+        });
+    </script>
+</body>
+</html>

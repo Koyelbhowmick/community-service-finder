@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Community Service Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Community Service Finder</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="register.html">Register</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+    <main>
+        <section class="form-section">
+            <h2>Register</h2>
+            <form id="register-form">
+                <label for="user-type">I am a:</label>
+                <select id="user-type" name="user-type">
+                    <option value="volunteer">Volunteer</option>
+                    <option value="organization">Organization</option>
+                </select>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit" class="button">Register</button>
+            </form>
+            <p id="success-message" style="color: green; display: none;">Registration successful! Redirecting to login page...</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Community Service Finder. All rights reserved. <a href="contact.html">Contact Us</a></p>
+    </footer>
+    <script>
+        const registerForm = document.getElementById('register-form');
+        const successMessage = document.getElementById('success-message');
+
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userType = registerForm.elements['user-type'].value;
+            const name = registerForm.elements['name'].value;
+            const email = registerForm.elements['email'].value;
+            const password = registerForm.elements['password'].value;
+
+            // Save user data to localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            users.push({ userType, name, email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Show success message and redirect to login page
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

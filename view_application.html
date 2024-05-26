@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Details - Community Service Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1506765515384-028b60a970df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Community Service Finder</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="register.html">Register</a>
+            <a href="login.html">Login</a>
+            <a href="organization_dashboard.html">Dashboard</a>
+            <a href="#" id="logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <section class="form-section">
+            <h2>Application Details</h2>
+            <div id="application-details">
+                <!-- Details will be filled by JavaScript -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Community Service Finder. All rights reserved. <a href="contact.html">Contact Us</a></p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+
+            if (!loggedInUser || loggedInUser.userType !== 'organization') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            document.getElementById('logout').addEventListener('click', () => {
+                sessionStorage.removeItem('loggedInUser');
+                window.location.href = 'login.html';
+            });
+
+            const application = JSON.parse(sessionStorage.getItem('selectedApplication'));
+            if (!application) {
+                window.location.href = 'organization_dashboard.html';
+                return;
+            }
+
+            const detailsDiv = document.getElementById('application-details');
+            detailsDiv.innerHTML = `
+                <h3>${application.volunteer}</h3>
+                <p><strong>Email:</strong> ${application.email}</p>
+                <p><strong>Applied for:</strong> ${application.opportunity}</p>
+                <p><strong>Date:</strong> ${application.date}</p>
+                <p><strong>Organization:</strong> ${application.organization}</p>
+            `;
+        });
+    </script>
+</body>
+</html>

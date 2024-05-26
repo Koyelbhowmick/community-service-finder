@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Community Service Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHZvbHVudGVlcnxlbnwwfHx8fDE2MjY5MjUyNDM&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Community Service Finder</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="register.html">Register</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+    <main>
+        <section class="form-section">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <label for="user-type">Login As:</label>
+                <select id="user-type" name="user-type">
+                    <option value="volunteer">Volunteer</option>
+                    <option value="organization">Organization</option>
+                </select>
+                <button type="submit" class="button">Login</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Community Service Finder. All rights reserved. <a href="contact.html">Contact Us</a></p>
+    </footer>
+    <script>
+        const loginForm = document.getElementById('login-form');
+
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = loginForm.elements['email'].value;
+            const password = loginForm.elements['password'].value;
+            const userType = loginForm.elements['user-type'].value;
+
+            // Validate user credentials
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(user => user.email === email && user.password === password && user.userType === userType);
+
+            if (user) {
+                // Store user data in sessionStorage
+                sessionStorage.setItem('loggedInUser', JSON.stringify(user));
+                // Redirect based on user type
+                if (userType === 'volunteer') {
+                    window.location.href = 'volunteer_dashboard.html';
+                } else if (userType === 'organization') {
+                    window.location.href = 'organization_dashboard.html';
+                }
+            } else {
+                alert('Invalid email or password. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

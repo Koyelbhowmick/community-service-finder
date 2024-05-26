@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Community Service Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            padding-bottom: 4rem; /* Adjust the padding to accommodate footer */
+        }
+        .contact-details {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative; /* Position relative for absolute positioning of button */
+        }
+        .contact-details p {
+            margin: 0.5rem 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4caf50;
+            color: white;
+            padding: 0.3rem 0.6rem; /* Smaller padding */
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+            font-size: 0.8rem; /* Smaller font size */
+            position: fixed; /* Fixed position */
+            top: 1rem; /* Adjust top position */
+            right: 1rem; /* Adjust right position */
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Community Service Finder</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="register.html">Register</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+    <main>
+        <section class="contact-details">
+            <h2>Contact Us</h2>
+            <p>Made by: Koyel Bhowmick</p>
+            <p>REG. NO.: 223001010642</p>
+            <p>ROLL NO.: 30001222041</p>
+            <p>Email: koyelbhowmick067@gmail.com</p> 
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Community Service Finder. All rights reserved.</p>
+    </footer>
+    <!-- Clear Data Button -->
+    <button id="clear-storage" class="button">Clear Data</button>
+    <script>
+        // Function to clear data
+        function clearData() {
+            localStorage.clear();
+            alert('All data has been cleared.');
+        }
+
+        // Event listener for clear data button
+        document.getElementById('clear-storage').addEventListener('click', () => {
+            // Prompt for password
+            const password = prompt('Please enter the password to clear data:');
+            // Check password
+            if (password === 'amenvkn') {
+                // If password is correct, clear data
+                clearData();
+            } else {
+                // If password is incorrect, show error message
+                alert('Incorrect password. Data not cleared.');
+            }
+        });
+    </script>
+</body>
+</html>

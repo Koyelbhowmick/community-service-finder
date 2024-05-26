@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunity Details - Community Service Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1506765515384-028b60a970df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Community Service Finder</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="register.html">Register</a>
+            <a href="login.html">Login</a>
+            <a href="volunteer_dashboard.html">Dashboard</a>
+            <a href="#" id="logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <section class="form-section">
+            <h2>Opportunity Details</h2>
+            <div id="opportunity-details">
+                <!-- Details will be filled by JavaScript -->
+            </div>
+            <button class="button" id="apply-button">Apply</button>
+            <p id="success-message" style="color: green; display: none;">Application submitted successfully!</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Community Service Finder. All rights reserved. <a href="contact.html">Contact Us</a></p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+
+            if (!loggedInUser || loggedInUser.userType !== 'volunteer') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            document.getElementById('logout').addEventListener('click', () => {
+                sessionStorage.removeItem('loggedInUser');
+                window.location.href = 'login.html';
+            });
+
+            const opportunity = JSON.parse(sessionStorage.getItem('selectedOpportunity'));
+            if (!opportunity) {
+                window.location.href = 'volunteer_dashboard.html';
+                return;
+            }
+
+            const detailsDiv = document.getElementById('opportunity-details');
+            detailsDiv.innerHTML = `
+                <h3>${opportunity.title}</h3>
+                <p><strong>Organization:</strong> ${opportunity.organization}</p>
+                <p><strong>Date:</strong> ${opportunity.date}</p>
+                <p><strong>Description:</strong> ${opportunity.description}</p>
+            `;
+
+            const applyButton = document.getElementById('apply-button');
+            applyButton.addEventListener('click', () => {
+                let applications = JSON.parse(localStorage.getItem('applications')) || [];
+                applications.push({
+                    volunteer: loggedInUser.name,
+                    email: loggedInUser.email,
+                    opportunity: opportunity.title,
+                    organization: opportunity.organization,
+                    date: opportunity.date
+                });
+                localStorage.setItem('applications', JSON.stringify(applications));
+
+                document.getElementById('success-message').style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = 'volunteer_dashboard.html';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
