@@ -1,21 +1,23 @@
 /* General styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #f4f4f9;
     color: #333;
 }
 
 header {
-    background-color: rgba(76, 175, 80, 0.8);
+    background-color: rgba(76, 175, 80, 0.9);
     padding: 1rem;
     text-align: center;
     color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
     margin: 0;
+    font-size: 2rem;
 }
 
 nav a {
@@ -23,9 +25,11 @@ nav a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    transition: color 0.3s ease;
 }
 
 nav a:hover {
+    color: #ffeb3b;
     text-decoration: underline;
 }
 
@@ -35,46 +39,59 @@ main {
 }
 
 footer {
-    background-color: rgba(76, 175, 80, 0.8);
-    padding: 0.5rem; /* Smaller padding for the footer */
+    background-color: rgba(76, 175, 80, 0.9);
+    padding: 0.5rem;
     text-align: center;
     color: white;
     position: fixed;
     bottom: 0;
     width: 100%;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
 footer p {
     margin: 0;
+    font-size: 0.9rem;
 }
 
 /* Hero section */
 .hero {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 2rem;
     border-radius: 10px;
     display: inline-block;
     animation: fadeIn 1s ease-in;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .hero h2 {
     margin-top: 0;
+    font-size: 1.75rem;
+    color: #2c3e50;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #666;
 }
 
 .button {
     display: inline-block;
     background-color: #4caf50;
     color: white;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.5rem;
     border: none;
     border-radius: 5px;
     text-decoration: none;
     font-size: 1rem;
     margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .button:hover {
     background-color: #45a049;
+    transform: scale(1.05);
 }
 
 @keyframes fadeIn {
@@ -84,33 +101,45 @@ footer p {
 
 /* Form section */
 .form-section {
-    max-width: 500px;
+    max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
     border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     animation: fadeIn 1s ease-in;
-    text-align: left; /* Align text to the left */
+    text-align: left;
 }
 
 .form-section h2 {
     margin-top: 0;
+    font-size: 1.5rem;
+    color: #2c3e50;
 }
 
 .form-section label {
     display: block;
     margin: 1rem 0 0.5rem;
+    font-weight: bold;
+    color: #444;
 }
 
 .form-section input,
 .form-section select {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.75rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+.form-section input:focus,
+.form-section select:focus {
+    border-color: #4caf50;
+    outline: none;
 }
 
 /* Volunteer and organization details */
@@ -126,10 +155,10 @@ footer p {
 
 .opportunity,
 .application {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 1.5rem;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
     margin-bottom: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     animation: fadeIn 1s ease-in;
@@ -138,4 +167,18 @@ footer p {
 .opportunity h3,
 .application h3 {
     margin-top: 0;
+    font-size: 1.25rem;
+    color: #2c3e50;
+}
+
+.opportunity p,
+.application p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #666;
+}
+
+.opportunity .button,
+.application .button {
+    margin-top: 0.5rem;
 }
